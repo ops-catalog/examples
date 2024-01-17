@@ -1,0 +1,22 @@
+apiVersion: "v1"
+kind: Discovery
+metadata: 
+  name: "airflow-discovery"
+
+type: airflow
+
+instance:
+  - name: "airflow-1"
+    includes:
+      - internal
+    options: 
+      host: "airflow.ops-catalog.io"
+      port: "8280"
+      username: "admin"
+      password: "file:./tmp/airflow"
+      ssl: "false"
+    classification:
+      team: "dataplatform"
+      domain: "jobs"
+      type: "Scheduler"
+      capability: "jobs"

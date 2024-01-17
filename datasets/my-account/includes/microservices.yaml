@@ -1,0 +1,12 @@
+apiVersion: "v1"
+kind: Template
+metadata:
+  name: microservices
+runtime:
+  endpoint:
+    - intent: readiness
+      location: "/ready"
+    - intent: liveness
+      location: "/live"
+    - intent: correctness
+      location: "/correct"

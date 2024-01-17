@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: Appliance
+class: SaaS
+metadata: 
+  name: "idp SaaS"
+  description: "IDP provider for Api Gateway"
+  license: "commercial"
+dependencies:
+  upstream: []
+  downstream: []
+  triggers: []
+classification:
+    type: "SaaS"
+    tag: ["iam"]
+    domain: "iam"
+    team: "gateway"
+    capability: "IAM"

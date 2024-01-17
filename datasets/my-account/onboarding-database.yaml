@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: Resource
+class: Schema
+metadata: 
+  name: "onboarding"
+  description: "Schema and DB connection used by onboarding use case"
+  license: "private"
+dependencies:
+  upstream: []
+  providedBy: postgres.pg-2 
+  triggers: []
+classification:
+    type: "Schema"
+    tag: ["origination", "onboarding", "customer"]
+    domain: "origination"
+    team: "loaders"
+    capability: "origination"

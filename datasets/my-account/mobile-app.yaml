@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: Component
+class: App
+metadata: 
+  name: "mobile app"
+  description: "Mobile Application for Customers"
+  license: "private"
+dependencies:
+  upstream: []
+  downstream: []
+  triggers: []
+classification:
+    type: "App"
+    tag: ["servicing", "mobile", "client"]
+    domain: "servicing"
+    team: "mobile"
+    capability: "Client Experience"

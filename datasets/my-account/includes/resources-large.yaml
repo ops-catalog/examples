@@ -1,0 +1,9 @@
+apiVersion: "v1"
+kind: Template
+metadata:
+  name: resources-large
+properties:
+  resources:
+    profile: "cpu-large"
+    deploy: { cpu: 2, memory: "2048", class: "large", "replicas": 3 }
+

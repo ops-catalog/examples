@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: Appliance
+class: App
+metadata: 
+  name: "deployer"
+  description: "Tool to perform deploy action against a target runtime"
+  license: "private"
+dependencies:
+  upstream: ["iam SaaS", "oca", "platform-config"]
+  downstream: ["kubernetes"]
+  triggers: []
+classification:
+    type: "App"
+    tag: ["deploy"]
+    domain: "infra"
+    team: "platform"
+    capability: "Continuous Deployment"

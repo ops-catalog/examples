@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: Resource
+class: Topic 
+metadata: 
+  name: "onboarding.events"
+  description: "Topic used by onboarding process where events are provided for downstream"
+  license: "private"
+dependencies:
+  upstream: []
+  providedBy: kafka.kafka-1
+  triggers: []
+classification:
+    type: "Queue"
+    tag: ["origination", "onboarding", "customer"]
+    domain: "origination"
+    team: "loaders"
+    capability: "origination"

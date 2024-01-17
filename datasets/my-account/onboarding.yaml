@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: Component
+class: App
+metadata: 
+  name: "onboarding"
+  description: "Onboarding Microservice providing API for Gateway Layer"
+  license: "private"
+dependencies:
+  upstream: ["checks"]
+  downstream: ["onboarding queue", "onboarding database"]
+  triggers: []
+classification:
+    type: "App"
+    tag: ["origination", "onboarding"]
+    domain: "origination"
+    team: "loaders"
+    capability: "Onboarding"

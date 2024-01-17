@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: Component
+class: App
+metadata: 
+  name: "notifications"
+  description: "Event listener that sends email messages to customer"
+  license: "private"
+dependencies:
+  upstream: ["onboarding.events"]
+  downstream: ["email", "notificationstore"]
+  triggers: []
+classification:
+    type: "App"
+    tag: ["preferences"]
+    domain: "preferences"
+    team: "alerters"
+    capability: "Correspondence"

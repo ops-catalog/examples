@@ -1,0 +1,18 @@
+apiVersion: "v1"
+kind: Appliance
+class: SumoLogic
+metadata: 
+  name: "logs SaaS"
+  description: "SaaS service for log aggregation and analysis"
+  license: "commercial"
+dependencies:
+  upstream: []
+  downstream: []
+  triggers: []
+classification:
+  type: "SumoLogic"
+  tag: ["logs", "metrics"]
+  domain: "infra"
+  team: "platform"
+  capability: "Operations"
+    

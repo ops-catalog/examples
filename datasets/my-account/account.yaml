@@ -1,0 +1,66 @@
+apiVersion: "v1"
+kind: Component
+class: App
+includes:
+  - resources-small
+  - microservices
+  - account-team-stuff
+
+metadata: 
+  name: "account"
+  description: "Account microservice providing external API via Gateway"
+dependencies:
+  upstream: []
+  downstream: ["account database"]
+  triggers: []
+classification:
+  type: "App"
+  tag: ["account"]
+  domain: "account"
+  team: "accountants"
+  capability: "onlinebanking"
+properties:
+  dev: 
+    quickstart: "./gradlew runApp"
+    local-run: "docker-compose up -d"
+  build:
+    command: "./gradlew clean build"
+  lifecycle:
+    source-template: "microservices-starter"
+    status: "active"
+  resources:
+    profile: "cpu-medium"
+    deploy: { cpu: 0.5, memory: "512m", class: "medium", "replicas": 3 }
+
+links:
+  - type: artifact/image
+    url: "https://docker.io/account-team/account"
+  - type: dashboard/metrics
+    url: "http://company-metrics/account/metrics"
+
+contact:
+  owner:
+    id: "@user1"
+  contributors:
+    - id: "@user3.surname"
+    - id: "accountants.team@ops-catalog.io"
+  support:
+    - id: "#account-domain-chat"
+    - id: "+61289009999"
+  participants:
+    - id: "@user5"
+      intent: "stakeholder"
+    - id: "[leadership]"
+      intent: "business-approvers"
+    - id: "id://@user6"
+      intent: "tester"
+    - id: "slack://#chatgroup"
+      intent: "chatfaq"
+    - id: "mattermost://#devonly"
+      intent: "developers"
+    - id: "tel://+61401006933"
+      intent: "sre"
+    - id: "group://[ProductPOs]"
+      intent: "po"
+    - id: "team://devops"
+      intent: "devops"

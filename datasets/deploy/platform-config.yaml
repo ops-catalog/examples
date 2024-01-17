@@ -1,0 +1,24 @@
+apiVersion: "v1"
+kind: Resource
+class: Repository
+metadata: 
+  name: "release config"
+  description: "GitOps project to specify what to release"
+  license: "private"
+apiVersion: "v1"
+kind: Resource
+class: Repository
+metadata: 
+  name: "platform-config"
+  description: "release config repository for GitOps used by Api Gateway"
+dependencies:
+  upstream: []
+  downstream: []
+  triggers: []
+  providedBy: "git"
+classification:
+    type: "Repository"
+    tag: ["release", "gitops"]
+    domain: "infra"
+    team: "platform"
+    capability: "Continuous Deployment"

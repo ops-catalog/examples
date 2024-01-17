@@ -1,0 +1,19 @@
+apiVersion: "v1"
+kind: Resource
+class: Schema
+metadata: 
+  name: "audit"
+  description: "Audit tables for customer activity"
+  license: "private"
+dependencies:
+  upstream: []
+  providedBy: cassandra.cassandra-1
+  triggers: []
+classification:
+    type: "Schema"
+    tag: ["transaction", "customer"]
+    domain: "transaction"
+    team: "transaction"
+    capability: "onlinebanking"
+
+    

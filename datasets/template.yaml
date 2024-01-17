@@ -1,0 +1,52 @@
+apiVersion: "v1"
+kind: Component
+metadata: 
+  name: "template"
+  description: "Template for a Component"
+  logo: "component.png"
+  contact: "template@ops.catalog"
+  labels: 
+    tier: 1
+    internet-facing: false
+    layer: web
+  annotations: {}
+contact: 
+  owner: 
+    id: "@user1"
+  contributors:
+    - id: "web-team"
+  support: 
+    - id: "#template"
+  approvers:
+    - id: "[DevExperience]"
+properties: 
+  lifecycle:
+    status: "active"
+links: 
+  - type: source
+    url: git@github.com:owner/abc.git
+  - type: artifact/image
+    url: docker://owner/abc
+  - type: artifact/jar
+relationship: 
+  upstream: []
+  dependencies: []
+  downstream: [] #derived
+  triggers: []
+runtime: 
+  endpoint:
+    - intent: entrypoint
+      location: "http://template/app"
+    - intent: "readiness"
+      location: "/ready"
+  environment:
+    - prod
+    - nonprod
+    - test
+classification: 
+    type: "App"
+    tag: [ "agent" ]
+    domain: "catalog"
+    team: "devexp"
+    capability: "operations"
+audit: {}

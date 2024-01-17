@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: Resource
+class: Schema
+metadata: 
+  name: "account"
+  description: "Schema and DB connection used by account apps to store and access account information"
+  license: "private"
+dependencies:
+  upstream: []
+  providedBy: postgres.pg-1 
+  triggers: []
+classification:
+    type: "Schema"
+    tag: ["account", "customer"]
+    domain: "account"
+    team: "accountants"
+    capability: "onlinebanking"

@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: Component
+class: App
+metadata: 
+  name: "SaaS crm"
+  description: "Call Centre App for Servicing"
+  license: "commercial"
+dependencies:
+  upstream: []
+  downstream: []
+  triggers: []
+classification:
+    type: "App"
+    tag: ["servicing", "client"]
+    domain: "servicing"
+    team: "crm"
+    capability: "client experience"

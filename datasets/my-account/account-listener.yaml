@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: Component
+class: App
+includes:
+  - resources-small
+  - microservices
+  - account-team-stuff
+metadata:
+  name: "account listener"
+  description: "Event Listener that consumes onboarding event and adds Account entry"
+dependencies:
+  upstream: ["onboarding.events"]
+  downstream: ["account database"]
+  triggers: []
+classification:
+    type: "App"
+

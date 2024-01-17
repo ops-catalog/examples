@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: Store 
+class: Kafka
+metadata: 
+  name: "messaging service"
+  description: "SaaS service for log aggregation and analysis"
+  license: "Apache 2.0"
+dependencies:
+  upstream: []
+  downstream: []
+  triggers: []
+classification:
+    type: "Kafka"
+    tag: ["messaging", "stream"]
+    domain: "storage"
+    team: "keepers"
+    capability: "Operations"

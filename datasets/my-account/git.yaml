@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: Appliance
+class: Git
+metadata: 
+  name: "git"
+  description: "Git service used for GitOps"
+  license: "commercial"
+dependencies:
+  upstream: []
+  downstream: []
+  triggers: []
+classification:
+    type: "Git"
+    tag: ["git", "gitops"]
+    domain: "infra"
+    team: "platform"
+    capability: "Operations"

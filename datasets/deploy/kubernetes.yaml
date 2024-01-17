@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: Appliance
+class: Kubernetes
+metadata: 
+  name: "kubernetes"
+  description: "Kubernetes Service for container workloads for deployed artifacts"
+  license: "Apache 2.0"
+dependencies:
+  upstream: []
+  downstream: []
+  triggers: []
+classification:
+    type: "Kubernetes"
+    tag: ["containers"]
+    domain: "infra"
+    team: "platform"
+    capability: "Operations"

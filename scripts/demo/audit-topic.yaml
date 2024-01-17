@@ -1,0 +1,17 @@
+apiVersion: "v1"
+kind: Resource
+class: Topic 
+metadata: 
+  name: "audit.events"
+  description: "Audit Log is available in this kafka topic"
+  license: "private"
+dependencies:
+  upstream: []
+  providedBy: kafka.kafka-1
+  triggers: []
+classification:
+    type: "Topic"
+    tag: ["audit", "observability"]
+    domain: "operations"
+    team: "dataplatform"
+    capability: "observability"

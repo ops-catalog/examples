@@ -1,0 +1,18 @@
+apiVersion: "v1"
+kind: Appliance
+class: SaaS
+metadata: 
+  name: "check SaaS"
+  description: "Customer Credit Check service provided as a SaaS"
+  license: "commercial"
+relationship:
+  upstream: []
+  dependencies: []
+  downstream: []
+  triggers: []
+classification:
+    type: "SaaS"
+    tag: ["onboarding", "origination"]
+    domain: "origination"
+    team: "loaders"
+    capability: "onboarding"

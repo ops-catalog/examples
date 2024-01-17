@@ -1,0 +1,16 @@
+apiVersion: "v1"
+kind: Store 
+class: Postgres
+metadata: 
+  name: "postgres"
+  description: "Postgres Database server used for my account"
+  license: "PostgreSQL"
+dependencies:
+  upstream: []
+  downstream: []
+  triggers: []
+classification:
+    tag: ["database"]
+    domain: "storage"
+    team: "keepers"
+    capability: "Operations"
