@@ -4,6 +4,8 @@
 Ensure you have Docker/Nerdctl install and execute the following:
 
 ```
+git clone git@github.com:ops-catalog/examples.git
+cd examples
 docker run \
 -v $(pwd)/datasets:/opt/app/datasets \
 -v $(pwd)/conf:/opt/app/config \
