@@ -1,0 +1,20 @@
+apiVersion: "v1"
+kind: Resource
+class: Bucket 
+metadata:
+  name: "onboarding-attachments-2024"
+  description: "Attachments uploaded for onboarding are stored in this s3 bucket"
+  license: "private"
+dependencies:
+  upstream: []
+  providedBy: s3.s3-1
+  triggers: []
+includes:
+ - 
+classification:
+    type: "Bucket"
+    tag: ["enrichment", "attachments"]
+    domain: "onboarding"
+    team: "loaders"
+    capability: "membership"
+

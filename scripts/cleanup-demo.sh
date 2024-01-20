@@ -12,6 +12,9 @@ if [[ -f ${account_dir}/merchants-schema.yaml ]];then
   rm ${account_dir}/merchants-schema.yaml
 fi;
 
+if [[ -f ${account_dir}/bucket-attachments.yaml ]];then 
+  rm ${account_dir}/bucket-attachments.yaml
+fi;
 
 kubectl get sts cassandra >/dev/null 2>&1
 if [[ $? -eq 0 ]];
