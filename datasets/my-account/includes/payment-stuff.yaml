@@ -1,0 +1,33 @@
+apiVersion: "v1"
+kind: Template
+class: App
+includes:
+  - internal
+metadata:
+  name: "payment-stuff"
+  labels: {}
+  annotations: {}
+  license: "private"
+classification:
+  tag: ["payment"]
+  domain: "payment"
+  team: "paypaynow"
+  capability: "payment"  
+
+contact:
+  owner:
+    id: "@user5"
+  contributors:
+    - id: "@user4.surname"
+    - id: "payment.team@ops-catalog.io"
+  support:
+    - id: "#payments"
+  participants:
+    - id: "team://payment"
+links:
+  - type: "dashboard"
+    url: "http://go/dashboards/payment"
+  - type: "test-suites"
+    url: "http://go/tests/payment"
+
+

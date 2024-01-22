@@ -12,6 +12,7 @@ instance:
 
     includes:
       - internal
+      - data-stuff
     classification:
       team: "datahoarders"
       domain: "storage"

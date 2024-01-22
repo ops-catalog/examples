@@ -1,0 +1,32 @@
+apiVersion: "v1"
+kind: Template
+class: App
+includes:
+  - internal
+metadata:
+  name: "data-stuff"
+  labels: {}
+  annotations: {}
+  license: "private"
+classification:
+  tag: ["data", "platform"]
+  domain: "jobs"
+  team: "dataplatform"
+  capability: "jobs"  
+contact:
+  owner:
+    id: "@user1"
+  contributors:
+    - id: "@user8.surname"
+    - id: "data.team@ops-catalog.io"
+  support:
+    - id: "#data-engineering"
+  participants:
+    - id: "team://dataplatform"
+links:
+  - type: "dashboard"
+    url: "http://go/dashboards/data"
+  - type: "test-suites"
+    url: "http://go/tests/data"
+
+

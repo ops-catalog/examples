@@ -6,6 +6,19 @@ if [[ $? -eq 0 ]];
 then 
   echo creating a new schema "FAQ"
   kubectl exec -it cassandra-0 -- cqlsh -e "create keyspace if not exists faq with replication={'class':'SimpleStrategy', 'replication_factor':1};"
+  kubectl exec -it cassandra-0 -- cqlsh -e "CREATE TABLE if not exists faq.catalog (
+            id text PRIMARY KEY,
+            content blob
+        ) WITH bloom_filter_fp_chance = 0.01
+            AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+            AND comment = '{
+                  \"discovery.ops.catalog/skip\": \"false\",
+                  \"discovery.ops.catalog/team\": \"account\",
+                  \"discovery.ops.catalog/domain\": \"onboarding\",
+                  \"discovery.ops.catalog/capability\": \"onboarding\",
+                  \"discovery.ops.catalog/includes\": \"onboarding-stuff,internal\"
+        }'"
+
 fi;
 
 kubectl get sts postgres >/dev/null 2>&1
