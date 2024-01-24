@@ -1,8 +1,8 @@
 apiVersion: "v1"
-kind: Appliance
+kind: Service
 class: Gmail
 metadata: 
-  name: "mail SaaS"
+  name: "mail-SaaS"
   description: "Mailserver used by notification subsystem"
   license: "commercial"
 dependencies:
@@ -10,7 +10,6 @@ dependencies:
   downstream: []
   triggers: []
 classification:
-    type: "Gmail"
     tag: ["mail", "saas"]
     domain: "infra"
     team: "platform"
