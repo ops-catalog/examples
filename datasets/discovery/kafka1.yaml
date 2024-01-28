@@ -20,3 +20,5 @@ instance:
       domain: "storage"
       type: "Topic"
       capability: "operations"
+    #ignore, skip, replace, mergeLeft, mergeRight
+    duplicatesStrategy: "ignore" 

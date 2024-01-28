@@ -19,3 +19,5 @@ instance:
       domain: "platform"
       type: "App"
       capability: "operations"
+    #ignore, skip, replace, mergeLeft, mergeRight
+    duplicatesStrategy: "ignore" 

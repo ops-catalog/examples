@@ -20,6 +20,8 @@ instance:
       password: "file:./tmp/pgpassword"
       ssl: "false"
       database: "servicing"
+      #ignore, skip, replace, mergeLeft, mergeRight
+    duplicatesStrategy: "ignore" 
 
   - name: "pg-2"
     options: 
@@ -29,3 +31,5 @@ instance:
       password: "file:./tmp/pgpassword"
       ssl: "false"
       database: "preferences"
+      #ignore, skip, replace, mergeLeft, mergeRight
+    duplicatesStrategy: "ignore" 

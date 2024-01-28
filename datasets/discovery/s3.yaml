@@ -28,4 +28,5 @@ instance:
       region: "ap-southeast-2"
 
       ssl: "true"
-
+    #ignore, skip, replace, mergeLeft, mergeRight
+    duplicatesStrategy: "skip" 
