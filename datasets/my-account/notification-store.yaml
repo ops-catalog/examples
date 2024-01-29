@@ -10,7 +10,6 @@ dependencies:
   providedBy: cassandra.cassandra-1
   triggers: []
 classification:
-    type: "Schema"
     tag: ["origination", "onboarding", "customer"]
     domain: "origination"
     team: "loaders"

@@ -10,7 +10,6 @@ dependencies:
   downstream: ["kubernetes"]
   triggers: []
 classification:
-    type: "App"
     tag: ["deploy"]
     domain: "infra"
     team: "platform"

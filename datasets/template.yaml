@@ -44,7 +44,6 @@ runtime:
     - nonprod
     - test
 classification: 
-    type: "App"
     tag: [ "agent" ]
     domain: "catalog"
     team: "devexp"

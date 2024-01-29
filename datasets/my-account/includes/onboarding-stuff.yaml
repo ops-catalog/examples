@@ -9,7 +9,6 @@ metadata:
   annotations: {}
   license: "private"
 classification:
-  type: "App"
   tag: ["onboarding", "origination"]
   domain: "origination"
   team: "loaders"

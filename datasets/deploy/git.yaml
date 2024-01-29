@@ -10,7 +10,6 @@ dependencies:
   downstream: []
   triggers: []
 classification:
-    type: "Git"
     tag: ["git", "gitops"]
     domain: "infra"
     team: "platform"

@@ -10,7 +10,6 @@ dependencies:
   providedBy: kafka.kafka-1
   triggers: []
 classification:
-    type: "Queue"
     tag: ["origination", "onboarding", "customer"]
     domain: "origination"
     team: "loaders"

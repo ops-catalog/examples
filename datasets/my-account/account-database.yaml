@@ -10,7 +10,6 @@ dependencies:
   providedBy: postgres.pg-1 
   triggers: []
 classification:
-    type: "Schema"
     tag: ["account", "customer"]
     domain: "account"
     team: "accountants"

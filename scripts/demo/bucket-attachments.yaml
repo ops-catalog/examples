@@ -12,7 +12,6 @@ dependencies:
 includes:
  - 
 classification:
-    type: "Bucket"
     tag: ["enrichment", "attachments"]
     domain: "onboarding"
     team: "loaders"

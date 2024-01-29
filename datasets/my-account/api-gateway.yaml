@@ -11,6 +11,5 @@ relationship:
   downstream: []
   triggers: []
 classification:
-    type: "App"
     tag: ["gateway", "gitops"]
     capability: "onlinebanking"

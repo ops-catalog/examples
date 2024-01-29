@@ -15,7 +15,6 @@ dependencies:
   downstream: ["check SaaS"]
   triggers: []
 classification:
-    type: "App"
     tag: ["onboarding", "origination"]
     domain: "origination"
     team: "loaders"

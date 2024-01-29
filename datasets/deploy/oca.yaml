@@ -10,7 +10,6 @@ dependencies:
   downstream: []
   triggers: []
 classification:
-    type: "App"
     tag: ["operations", "catalog"]
     domain: "tools"
     team: "devtools"

@@ -18,7 +18,6 @@ instance:
     classification:
       team: "dataplatform"
       domain: "jobs"
-      type: "Scheduler"
       capability: "jobs"
       #ignore, skip, replace, mergeLeft, mergeRight
     duplicatesStrategy: "ignore" 

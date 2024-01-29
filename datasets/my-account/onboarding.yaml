@@ -10,7 +10,6 @@ dependencies:
   downstream: ["onboarding queue", "onboarding database"]
   triggers: []
 classification:
-    type: "App"
     tag: ["origination", "onboarding"]
     domain: "origination"
     team: "loaders"

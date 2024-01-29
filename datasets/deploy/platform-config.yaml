@@ -17,7 +17,6 @@ dependencies:
   triggers: []
   providedBy: "git"
 classification:
-    type: "Repository"
     tag: ["release", "gitops"]
     domain: "infra"
     team: "platform"

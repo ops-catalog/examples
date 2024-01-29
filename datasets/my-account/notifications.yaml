@@ -10,7 +10,6 @@ dependencies:
   downstream: ["email", "notificationstore"]
   triggers: []
 classification:
-    type: "App"
     tag: ["preferences"]
     domain: "preferences"
     team: "alerters"

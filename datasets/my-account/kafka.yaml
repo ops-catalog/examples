@@ -10,7 +10,6 @@ dependencies:
   downstream: []
   triggers: []
 classification:
-    type: "Kafka"
     tag: ["messaging", "stream"]
     domain: "storage"
     team: "keepers"

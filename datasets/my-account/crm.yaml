@@ -10,7 +10,6 @@ dependencies:
   downstream: []
   triggers: []
 classification:
-    type: "App"
     tag: ["servicing", "client"]
     domain: "servicing"
     team: "crm"

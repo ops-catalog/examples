@@ -18,7 +18,6 @@ instance:
     classification:
       team: "datahoarders"
       domain: "storage"
-      type: "Keyspace"
       capability: "dataretention"
       #ignore, skip, replace, mergeLeft, mergeRight
     duplicatesStrategy: "skip"       

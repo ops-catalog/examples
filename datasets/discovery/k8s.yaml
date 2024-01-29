@@ -17,7 +17,6 @@ instance:
     classification:
       team: "devops"
       domain: "platform"
-      type: "App"
       capability: "operations"
     #ignore, skip, replace, mergeLeft, mergeRight
     duplicatesStrategy: "ignore" 

@@ -12,6 +12,5 @@ dependencies:
   upstream: ["onboarding.events"]
   downstream: ["account database"]
   triggers: []
-classification:
-    type: "App"
+classification: {}
 

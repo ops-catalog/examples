@@ -9,7 +9,6 @@ metadata:
   annotations: {}
   license: "private"
 classification:
-  type: "App"
   tag: ["account"]
   domain: "account"
   team: "accountants"

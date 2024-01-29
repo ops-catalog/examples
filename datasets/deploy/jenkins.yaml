@@ -10,7 +10,6 @@ dependencies:
   downstream: []
   triggers: []
 classification:
-    type: "Jenkins"
     tag: ["deploy", "build"]
     domain: "infra"
     team: "platform"

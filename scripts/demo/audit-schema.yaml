@@ -10,7 +10,6 @@ dependencies:
   providedBy: cassandra.cassandra-1
   triggers: []
 classification:
-    type: "Schema"
     tag: ["transaction", "customer"]
     domain: "transaction"
     team: "transaction"

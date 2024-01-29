@@ -10,7 +10,6 @@ dependencies:
   providedBy: kafka.kafka-1
   triggers: []
 classification:
-    type: "Topic"
     tag: ["audit", "observability"]
     domain: "operations"
     team: "dataplatform"

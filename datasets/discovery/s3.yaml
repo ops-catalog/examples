@@ -16,7 +16,6 @@ instance:
     classification:
       team: "datahoarders"
       domain: "storage"
-      type: "Bucket"
       capability: "dataretention"
     options: 
 
