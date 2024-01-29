@@ -1,0 +1,184 @@
+version: '3.7'
+volumes:
+  catalogdb: { }
+  cassandradb: { }
+  logs: {}
+networks:
+  catalogn: { }
+
+services:
+  postgres:
+    image: postgres:15.5
+    profiles: ["pg", "db", "all"]
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/scripts/:/docker-entrypoint-initdb.d/
+    container_name: postgres
+    networks:
+      catalogn:
+        aliases:
+        - postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: "10s"
+      timeout: "10s"
+      retries: 3
+
+  pg-data:
+    image: postgres:15.5
+    profiles: ["pg", "db", "all"]
+    environment:
+      - PG_USER=postgres
+      - PGPASSWORD=password
+      - PG_HOST=postgres
+    container_name: pg-data
+    volumes:
+      - ./pg-data/files/scripts:/tmp/scripts
+      - ./pg-data/files/sql:/tmp/data
+    networks:
+      catalogn:
+        aliases:
+          - pg-data
+    command:
+      - /bin/bash
+      - -c
+      - /tmp/scripts/init.sh
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: always
+
+  cassandra:
+    image: cassandra:3.11.16
+    profiles: ["cassandra", "db", "all"]
+    environment:
+      - DS_LICENSE=accept
+      - SSL_VALIDATE=false
+    ports:
+      - "9042:9042"
+    container_name: cassandra
+    volumes:
+    - ./cassandra/data:/opt/cassandra/data
+    networks:
+      catalogn:
+        aliases:
+          - cassandra
+    healthcheck:
+      test: ["CMD-SHELL", "[ $$(nodetool statusgossip) = running ]"]
+      interval: 20s
+      timeout: 10s
+      retries: 3
+
+  cass-data:
+    image: cassandra:3.11.16
+    profiles: ["cassandra", "db", "all"]
+    environment:
+      - CASS_USER=cassandra
+      - CASS_PASSWORD=cassandra
+      - CASSANDRA_HOST=cassandra
+    container_name: cass-data
+    volumes:
+      - ./cass-data/files/scripts:/tmp/scripts
+      - ./cass-data/files/cql:/tmp/data
+    networks:
+      catalogn:
+        aliases:
+          - cass-data
+    command:
+      - /bin/bash
+      - -c
+      - /tmp/scripts/init.sh
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    restart: always
+
+  kafka:
+    image: bitnami/kafka:3.4.1-debian-11-r117
+    profiles: ["kafka", "all"]
+    ports:
+
+      - "9092:9092"
+      - "9094:9094"
+    volumes:
+      - "./kafka/data:/bitnami"
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@localhost:9093
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+    container_name: kafka
+    networks:
+      catalogn:
+        aliases:
+          - kafka
+    healthcheck:
+      test: ["CMD-SHELL", "bash", "-c", "kafka-topics.sh", "--list", "--bootstrap.server", "localhost:9092"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  kafka-setup:
+    image: bitnami/kafka:3.4.1-debian-11-r117
+    profiles: ["kafka", "all"]
+    environment:
+      - TOPICS=servicing.customer-events,payment.card-payment
+      - KAFKA_HOST=kafka
+    container_name: kafka-setup
+    volumes:
+      - './kafka-setup/files/scripts:/tmp/scripts'
+    command: ['/bin/bash', '-c', '/tmp/scripts/init.sh']
+    depends_on:
+      kafka:
+        condition: service_healthy
+    networks:
+      catalogn:
+        aliases:
+          - kafka-setup
+    restart: always
+
+
+  airflow:
+    image: skhatri/airflow:2.0.2
+    profiles: ["jobs", "all"]
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+      pg-data:
+        condition: service_completed_successfully
+    container_name: airflow
+    environment:
+      - LOAD_EX=n
+      - EXECUTOR=Local
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/conf/airflow.cfg:/opt/airflow/airflow.cfg
+    ports:
+      - "8280:8080"
+    command: embedded
+    networks:
+      catalogn:
+        aliases:
+          - airflow
+
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f /opt/airflow/airflow-webserver.pid ]"]
+      interval: "20s"
+      timeout: "20s"
+      retries: 3
+
+
+

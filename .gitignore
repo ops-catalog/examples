@@ -1,2 +1,7 @@
 .idea
+#Postgres
+data
+#Airflow
+logs
+__pycache__
 
