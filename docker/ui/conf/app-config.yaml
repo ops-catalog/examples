@@ -1,0 +1,115 @@
+app:
+  title: Ops Catalog Demo
+  baseUrl: http://localhost:3000
+  support:
+    url: https://github.com/backstage/backstage/issues
+    items:
+      - title: Backstage Community
+        icon: chat
+        links:
+          - url: https://backstage.io/docs/overview/support
+            title: Support and community
+      - title: Backstage News
+        icon: docs
+        links:
+          - url: https://backstage.io/blog/
+            title: Backstage Blog
+
+organization:
+  name: Ops
+
+backend:
+  baseUrl: http://localhost:7007
+  listen:
+    port: 7007
+  csp:
+    connect-src: ["'self'", 'http:', 'http:']
+    img-src:
+      [
+        "'self'",
+        'data:',
+        'https://backstage.io',
+        'https://img.shields.io/',
+        'https://api.dicebear.com/',
+        'https://kroki.io/',
+        'https://bestpractices.coreinfrastructure.org',
+        'https://api.securityscorecards.dev',
+      ]
+    frame-src: ['https://www.youtube.com']
+  cors:
+    origin: http://localhost:3000
+    methods: [GET, POST, PUT, DELETE]
+    credentials: true
+  database:
+    client: better-sqlite3
+    connection: ':memory:'
+  reading:
+    allow:
+      - host: 'localhost:8080'
+      - host: 'ops-catalog:8080'
+
+integrations:
+  github:
+    - host: github.com
+      token: ${GITHUB_TOKEN}
+
+auth:
+  environment: development
+  providers:
+    github:
+      development:
+        clientId: ${GITHUB_DEVELOPMENT_CLIENT_ID}
+        clientSecret: ${GITHUB_DEVELOPMENT_CLIENT_SECRET}
+
+catalog:
+  readonly: true
+  rules:
+    - allow:
+        [
+          Component,
+          API,
+          System,
+          Domain,
+          Resource,
+          Location,
+          User,
+          Group,
+          Store,
+          Appliance,
+        ]
+  locations:
+     - type: url
+       target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-domains.yaml
+
+
+costInsights:
+  engineerCost: 200000
+  products:
+    computeEngine:
+      name: Compute Engine
+      icon: compute
+    cloudStorage:
+      name: Cloud Storage
+      icon: storage
+    bigQuery:
+      name: BigQuery
+      icon: search
+  metrics:
+    DAU:
+      name: Daily Active Users
+      default: true
+    MSC:
+      name: Monthly Subscribers
+
+techdocs:
+  sanitizer:
+    allowedIframeHosts:
+      - www.youtube.com
+  builder: 'external'
+  generator:
+    runIn: 'local'
+  publisher:
+    type: 'local'
+api:
+  opsCatalog: http://ops-catalog:8080/api/catalog/
+

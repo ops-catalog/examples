@@ -22,7 +22,7 @@ http://localhost:8080/api/catalog
 ### Ops Catalog with minimal data
 If you have resource constraint, you can run selected profile as well and accordingly update engines list in docker/ops-catalog/conf/discovery.yaml or fulfillment.yaml
 
-We can run the command like below to bring up ops catalog API, a stand-in for objects in a Kubernetes cluster and a postgres instance with two databases.
+We can run the command like below to bring up ops catalog API, a stand-in for objects in a Kubernetes cluster,  a postgres instance with two databases and a basic UI.
 
 ```
 docker compose --env-file docker/.minimal -f docker/docker-compose.yaml --profile minimal up -d
@@ -76,6 +76,8 @@ http://localhost:8080/api/catalog?name=servicing.refdata
 
 If you list files under datasets/discovered-items you should also see few new folders depending on what discovery engines were enabled. In the case of minimal profile, you will see k8s and postgres folders populated with catalog items. 
 
+### UI
+Ops Catalog can provide data to your existing backstage instance. Navigate to http://localhost:7007/catalog to see Ops Catalog objects within backstage UI.
 
 ### Discovery Mode
 This compose file also runs a standalone kafka, postgres and cassandra and seeds them with initial objects so they can be collected by the discovery module.

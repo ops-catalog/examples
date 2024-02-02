@@ -226,3 +226,23 @@ services:
       catalogn:
         aliases:
           - ops-catalog
+
+  ui:
+    image: opscatalog/backstage-ui:latest
+    profiles: ["catalog", "minimal", "all"]
+    restart: always
+    container_name: ui
+    environment:
+      - NODE_ENV=development
+      - ENVIRONMENT_CONFIG=local 
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+      - CATALOG_URL=http://ops-catalog:8080/api/catalog
+    volumes:
+      - ./ui/conf/:/app/conf
+    depends_on: {}
+    ports:
+      - "7007:7007"
+    networks:
+      catalogn:
+        aliases:
+          - ui
