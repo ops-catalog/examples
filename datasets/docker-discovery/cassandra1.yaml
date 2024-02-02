@@ -1,0 +1,23 @@
+apiVersion: "v1"
+kind: Discovery
+metadata: 
+  name: "cassandra-discovery"
+
+type: cassandra
+
+instance:
+  - name: "cassandra-1"
+    options: 
+      host: "cassandra"
+      port: "9042"
+      username: "file:/opt/secrets/cassusername"
+      password: "file:/opt/secrets/casspassword"
+      ssl: "false"
+    includes:
+      - internal
+    classification:
+      team: "datahoarders"
+      domain: "storage"
+      capability: "dataretention"
+      #ignore, skip, replace, mergeLeft, mergeRight
+    duplicatesStrategy: "skip"       

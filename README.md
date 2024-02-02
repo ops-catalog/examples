@@ -19,17 +19,17 @@ Load the following link to view catalog item:
 http://localhost:8080/api/catalog
 
 
-### Discovery Mode (Coming soon)
+### Discovery Mode
 This compose file also runs a standalone kafka, postgres and cassandra and seeds them with initial objects so they can be collected by the discovery module.
 
 ```
-docker compose -f docker/with-discovery.yaml up -d
+docker compose --env-file docker/.discovery -f docker/docker-compose.yaml --profile all up -d
 ```
 
 ### Fulfillment Mode (Coming soon)
 The compose file is somewhat similar to ```with-discovery.yaml``` as it is now writing back to the targets.
 
 ```
-docker compose -f docker/with-fulfillment.yaml up -d
+docker compose --env-file docker/.fulfillment -f docker/docker-compose.yaml --profile all up -d
 ```
 

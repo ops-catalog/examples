@@ -1,0 +1,21 @@
+
+options:
+  log:
+    level: "info"
+    format: "json"
+  server:
+    address: ":8080"
+
+  serve:
+    refresh:
+      frequency: 5m
+    source:
+      - location: /opt/examples/datasets/my-account
+        extension: ".yaml"
+        name: "gitsync"
+        enabled: true
+      - location: /opt/examples/datasets/discovered-items
+        extension: ".yaml"
+        name: "discovery-data"
+        enabled: true     
+

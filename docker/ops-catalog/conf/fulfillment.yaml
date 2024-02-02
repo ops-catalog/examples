@@ -1,0 +1,75 @@
+
+options:
+  log:
+    level: "info"
+    format: "json"
+  server:
+    address: ":8080"
+
+  catalog:
+    location: "local"
+
+  fulfillment:
+    reference:
+      useDiscovery: true
+      target:
+        - name: broadcast
+          location: "kafka://kafka.ops-catalog.io:9092/catalog-events"
+          options:
+            username: "kafka"
+            password: "none"
+    run:
+      frequency: 2m
+    enabledEngines:
+      - cassandra
+      - postgres
+      - kafka
+      - s3
+#      - broadcast
+
+  discovery:
+    source:
+      - location: ../examples/datasets/discovery
+        extension: ".yaml"
+        name: "discover-1"
+        enabled: true
+    enabledEngines:
+      - k8s
+      - cassandra
+      - kafka
+#      - airflow
+      - postgres
+      - s3
+    refresh:
+      frequency: 10m
+    target:
+      name: "sink"
+      location: "/opt/examples/datasets/discovered-items"
+      options: {}
+
+
+  serve:
+    search:
+      index: ["layer", "tier", "team", "domain", "contact", "type",  "language", "name"]
+      parallel: 1
+    refresh:
+      frequency: 5m
+    source:
+      - location: /opt/examples/datasets/my-account
+        extension: ".yaml"
+        name: "gitsync"
+        enabled: true
+
+      - location: /opt/examples/datasets/discovered-items
+        extension: ".yaml"
+        name: "discovery-data"
+        enabled: true      
+
+      - location: "git@github.com:ops-catalog/examples.git"
+        extension: ".yaml"
+        name: "git-ssh-source"
+        enabled: false
+        options:
+          keyfile: "./tmp/key"
+          subpath: datasets/my-account
+

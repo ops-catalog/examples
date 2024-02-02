@@ -16,6 +16,6 @@ bring kafka and kafka-setup job
 ```shell
 docker compose --profile kafka up -d
 ```
-
+docker compose -f docker/docker-compose.yaml --profile k8s up -d
 
 

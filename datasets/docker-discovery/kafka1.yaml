@@ -1,0 +1,23 @@
+apiVersion: "v1"
+kind: Discovery
+metadata: 
+  name: "kafka-discovery"
+
+type: kafka
+
+instance:
+  - name: "kafka-1"
+    includes:
+      - internal
+    options: 
+      host: "kafka"
+      port: "9092"
+      username: "kafka"
+      password: "file:/opt/secrets/kafkapassword"
+      ssl: "false"
+    classification:
+      team: "keepers"
+      domain: "storage"
+      capability: "operations"
+    #ignore, skip, replace, mergeLeft, mergeRight
+    duplicatesStrategy: "ignore" 

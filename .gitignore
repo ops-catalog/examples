@@ -5,3 +5,6 @@ data
 logs
 __pycache__
 
+#Discovery Data
+/datasets/discovered-items/**/*.yaml
+

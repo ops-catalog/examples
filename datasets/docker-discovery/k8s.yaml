@@ -11,8 +11,8 @@ instance:
     includes:
       - internal
     options: 
-      host: "k8s-read.ops-catalog.io"
-      port: "80"
+      host: "k8s-read"
+      port: "6100"
       ssl: "false"
     classification:
       team: "devops"

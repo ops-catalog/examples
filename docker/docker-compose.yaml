@@ -3,13 +3,14 @@ volumes:
   catalogdb: { }
   cassandradb: { }
   logs: {}
+  pgdb: {}
 networks:
   catalogn: { }
 
 services:
   postgres:
     image: postgres:15.5
-    profiles: ["pg", "db", "all"]
+    profiles: ["pg", "db", "jobs", "catalog", "all"]
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
@@ -17,7 +18,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./postgres/data:/var/lib/postgresql/data
+      - pgdb:/var/lib/postgresql/data
       - ./postgres/scripts/:/docker-entrypoint-initdb.d/
     container_name: postgres
     networks:
@@ -32,7 +33,7 @@ services:
 
   pg-data:
     image: postgres:15.5
-    profiles: ["pg", "db", "all"]
+    profiles: ["pg", "db", "jobs", "catalog", "all"]
     environment:
       - PG_USER=postgres
       - PGPASSWORD=password
@@ -52,7 +53,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    restart: always
+    restart: never
 
   cassandra:
     image: cassandra:3.11.16
@@ -97,7 +98,7 @@ services:
     depends_on:
       cassandra:
         condition: service_healthy
-    restart: always
+
 
   kafka:
     image: bitnami/kafka:3.4.1-debian-11-r117
@@ -146,7 +147,6 @@ services:
       catalogn:
         aliases:
           - kafka-setup
-    restart: always
 
 
   airflow:
@@ -182,3 +182,48 @@ services:
 
 
 
+  k8s-read:
+    image: skhatri/go-http-cache:v1.0.5
+    profiles: ["k8s", "all"]
+    restart: always
+    container_name: k8s-read
+    environment:
+      - TARGET=http://k8s-read.ops-catalog.io:80
+      - TARGET_DESC="wont be called as we are using cached data"
+      - CONFIG_FILE=/conf/config.yaml
+      - LOG_MISS=true 
+      - IGNORE_HEADERS=true
+      - LISTEN_ADDRESS=k8s-read:6100
+    volumes:
+      - ./k8s-proxy-cache/cache:/tmp/cache
+    ports:
+      - "6100:6100"
+    networks:
+      catalogn:
+        aliases:
+          - k8s-read
+
+  
+  ops-catalog:
+    image: opscatalog/catalog:v0.3.0
+    profiles: ["catalog", "all"]
+    restart: always
+    container_name: ops-catalog
+    environment:
+      - LOG_LEVEL="INFO"
+      - CONFIG_FILE=/opt/conf/config.yaml
+    volumes:
+      - ./ops-catalog/conf/${MODE}.yaml:/opt/conf/config.yaml
+      - ./../datasets:/opt/examples/datasets
+      - ./../secrets:/opt/secrets
+    depends_on:
+      postgres:
+        condition: service_healthy
+      pg-data:
+        condition: service_completed_successfully
+    ports:
+      - "8080:8080"
+    networks:
+      catalogn:
+        aliases:
+          - ops-catalog
