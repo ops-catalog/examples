@@ -53,7 +53,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    restart: never
 
   cassandra:
     image: cassandra:3.11.16

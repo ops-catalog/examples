@@ -82,4 +82,5 @@ http://localhost:8080/api/catalog?name=merchants
 http://localhost:8080/api/catalog?name=refdata
 ```
 
-Refer to the [documentation](https://ops-catalog.github.io/specification) for details
+Refer to the [documentation](https://ops-catalog.github.io/specification) for details.
+
