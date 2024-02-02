@@ -75,6 +75,11 @@ EOF
 Once the discovery and fulfillment loop is complete, there should be two new items in the catalog.
 The schema called merchant should be visible in postgres as well.
 
-check the catalog entry 
+Check the catalog entry via api calls:
+
+```shell 
 http://localhost:8080/api/catalog?name=merchants
 http://localhost:8080/api/catalog?name=refdata
+```
+
+Refer to the [documentation](https://ops-catalog.github.io/specification) for details
