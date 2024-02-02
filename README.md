@@ -1,7 +1,8 @@
-# Examples
+# Ops Catalog Examples
+There are a bunch of example configurations available in this project to run Ops Catalog with various extensions.
 
-### Catalog Server
-Ensure you have Docker/Nerdctl install and execute the following:
+### Running Ops Catalog Api
+Ensure you have Docker/Nerdctl installed and execute the following:
 
 ```
 git clone git@github.com:ops-catalog/examples.git
@@ -18,14 +19,14 @@ This runs a minimilastic config where the catalog content can be queried and fil
 Load the following link to view catalog item:
 http://localhost:8080/api/catalog
 
-### Minimal Data
+### Ops Catalog with minimal data
 If you have resource constraint, you can run selected profile as well and accordingly update engines list in docker/ops-catalog/conf/discovery.yaml or fulfillment.yaml
+
+We can run the command like below to bring up ops catalog API, a stand-in for objects in a Kubernetes cluster and a postgres instance with two databases.
 
 ```
 docker compose --env-file docker/.minimal -f docker/docker-compose.yaml --profile minimal up -d
 ```
-
-The above two commands will run catalog, kubernetes api and postgres.
 
 To test discovery and fulfillment, create a new schema against the running postgres.
 
@@ -47,7 +48,7 @@ metadata:
   license: "private"
 dependencies:
   upstream: []
-  providedBy: postgres.pg-2
+  providedBy: postgres.pg-1
   triggers: []
 classification:
     tag: ["transaction", "customer"]
@@ -64,7 +65,7 @@ Check the catalog entry via api calls. The default refresh frequency is served d
 
 ```shell 
 http://localhost:8080/api/catalog?name=merchants
-http://localhost:8080/api/catalog?name=refdata
+http://localhost:8080/api/catalog?name=servicing.refdata
 ```
 If you list files under datasets/discovered-items you should also see few new folders depending on what discovery engines were enabled. In the case of minimal profile, you will see k8s and postgres folders populated with catalog items. 
 
@@ -85,4 +86,11 @@ docker compose --env-file docker/.fulfillment -f docker/docker-compose.yaml --pr
 
 
 Refer to the [documentation](https://ops-catalog.github.io/specification) for details.
+
+### Cleanup Activity
+To cleanup what we did just then, run the following command to remove all running containers associated with this project.
+
+```
+docker compose -f docker/docker-compose.yaml down --remove-orphans
+```
 
