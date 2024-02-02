@@ -48,7 +48,7 @@ metadata:
   license: "private"
 dependencies:
   upstream: []
-  providedBy: postgres.pg-1
+  providedBy: postgres.pg-2
   triggers: []
 classification:
     tag: ["transaction", "customer"]
@@ -61,12 +61,19 @@ EOF
 Once the discovery and fulfillment loop is complete, there should be two new items in the catalog.
 The schema called merchant should be visible in postgres as well.
 
+```shell
+docker exec -it postgres psql -Upostgres -dpreferences
+preferences=# select catalog_name, schema_name from information_schema.schemata;
+```
+
+
 Check the catalog entry via api calls. The default refresh frequency is served data is set at 5 minutes which you can change by updating ops-catalog/conf/*.yaml
 
 ```shell 
 http://localhost:8080/api/catalog?name=merchants
 http://localhost:8080/api/catalog?name=servicing.refdata
 ```
+
 If you list files under datasets/discovered-items you should also see few new folders depending on what discovery engines were enabled. In the case of minimal profile, you will see k8s and postgres folders populated with catalog items. 
 
 
