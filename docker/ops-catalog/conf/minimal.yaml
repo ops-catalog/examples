@@ -37,7 +37,7 @@ options:
       - k8s
       - postgres
     refresh:
-      frequency: 10m
+      frequency: 4m
     target:
       name: "sink"
       location: "/opt/examples/datasets/discovered-items"
