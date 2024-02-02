@@ -43,12 +43,15 @@ docker compose --env-file docker/.minimal -f docker/docker-compose.yaml --profil
 The above two commands will run catalog, kubernetes api and postgres.
 
 To test discovery and fulfillment, create a new schema against the running postgres.
-```
+
+```shell
 docker exec -it postgres psql -Upostgres -dservicing 
 servicing=# CREATE SCHEMA IF NOT EXISTS refdata;
 ```
+
 Also drop a new file into the mix
 
+```shell
 cat > datasets/my-account/merchant-schema.yaml <<EOF
 apiVersion: "v1"
 kind: Resource
@@ -67,6 +70,7 @@ classification:
     team: "transaction"
     capability: "onlinebanking"
 EOF
+```
 
 Once the discovery and fulfillment loop is complete, there should be two new items in the catalog.
 The schema called merchant should be visible in postgres as well.
