@@ -36,8 +36,7 @@ docker compose --env-file docker/.fulfillment -f docker/docker-compose.yaml --pr
 If you have resource constraint, you can run selected profile as well and accordingly update engines list in docker/ops-catalog/conf/discovery.yaml or fulfillment.yaml
 
 ```
-docker compose --env-file docker/.minimal -f docker/docker-compose.yaml --profile k8s up -d
-docker compose --env-file docker/.minimal -f docker/docker-compose.yaml --profile catalog up -d
+docker compose --env-file docker/.minimal -f docker/docker-compose.yaml --profile minimal up -d
 ```
 
 The above two commands will run catalog, kubernetes api and postgres.

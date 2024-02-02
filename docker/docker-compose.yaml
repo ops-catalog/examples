@@ -10,7 +10,7 @@ networks:
 services:
   postgres:
     image: postgres:15.5
-    profiles: ["pg", "db", "jobs", "catalog", "all"]
+    profiles: ["pg", "db", "jobs", "minimal", "catalog", "all"]
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
@@ -33,7 +33,7 @@ services:
 
   pg-data:
     image: postgres:15.5
-    profiles: ["pg", "db", "jobs", "catalog", "all"]
+    profiles: ["pg", "db", "jobs", "minimal", "catalog", "all"]
     environment:
       - PG_USER=postgres
       - PGPASSWORD=password
@@ -183,7 +183,7 @@ services:
 
   k8s-read:
     image: skhatri/go-http-cache:v1.0.5
-    profiles: ["k8s", "all"]
+    profiles: ["k8s", "minimal", "all"]
     restart: always
     container_name: k8s-read
     environment:
@@ -205,7 +205,7 @@ services:
   
   ops-catalog:
     image: opscatalog/catalog:v0.3.0
-    profiles: ["catalog", "all"]
+    profiles: ["catalog", "minimal", "all"]
     restart: always
     container_name: ops-catalog
     environment:
