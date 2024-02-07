@@ -9,9 +9,8 @@ instance:
   - name: "personal-github"
     includes:
       - internal
-    filter:
-      excludes: [".*"]
-      includes: [".*by-example"]
+    filter: 
+      includes: [".*by-example", ".*playground"]
     options: 
       host: "api.github.com"
       port: "443"
@@ -38,6 +37,7 @@ instance:
       password: "file:./tmp/githubpassword"
       ssl: "true"
       org: "ops-catalog"
+      use-hints: "false"
     classification:
       team: "devexp"
       domain: "platform"
