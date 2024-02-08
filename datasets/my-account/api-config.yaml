@@ -7,9 +7,12 @@ metadata:
   license: "private"
   annotations:
     discovery.ops.catalog/is-template: "false"
+properties:
+  lifecycle:
+    source-template: "skhatri/microservices-starter-kotlin"
 dependencies:
   upstream: []
-  providedBy: git.personal-github
+  providedBy: git.org-github 
   downstream: []
   triggers: []
 classification:
