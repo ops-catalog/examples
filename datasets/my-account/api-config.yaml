@@ -2,12 +2,14 @@ apiVersion: "v1"
 kind: Resource
 class: Repository
 metadata: 
-  name: "api config"
-  description: "api config repository for GitOps used by Api Gateway"
+  name: "apiconfig"
+  description: "Api config repository for GitOps used by Api Gateway"
   license: "private"
+  annotations:
+    discovery.ops.catalog/is-template: "false"
 dependencies:
   upstream: []
-  providedBy: git
+  providedBy: git.personal-github
   downstream: []
   triggers: []
 classification:
@@ -15,3 +17,4 @@ classification:
     domain: "iam"
     team: "gateway"
     capability: "iam"
+

@@ -2,11 +2,11 @@ apiVersion: "v1"
 kind: Component
 class: App
 metadata: 
-  name: "api gateway"
+  name: "apigateway"
   description: "API gateway for all external endpoints"
   license: "commercial"
 relationship:
-  upstream: []
+  upstream: ["apiconfig"]
   dependencies: []
   downstream: []
   triggers: []
