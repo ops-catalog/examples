@@ -1,0 +1,23 @@
+apiVersion: "v1"
+kind: Resource
+class: Repository
+metadata: 
+  name: "build-config"
+  description: "Build Configurations are stored here"
+  license: "private"
+  annotations:
+    discovery.ops.catalog/is-template: "false"
+properties:
+  lifecycle:
+    source-template: "skhatri/microservices-starter-kotlin"
+dependencies:
+  upstream: []
+  providedBy: git.personal-bitbucket
+  downstream: []
+  triggers: []
+classification:
+    tag: ["build", "gitops"]
+    domain: "platform"
+    team: "devexp"
+    capability: "build"
+

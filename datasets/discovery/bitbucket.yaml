@@ -18,6 +18,7 @@ instance:
       password: "file:./tmp/bitbucketpassword"
       ssl: "false"
       provider: "bitbucket"
+      project: "OC"
     classification:
       team: "devexp"
       domain: "platform"
