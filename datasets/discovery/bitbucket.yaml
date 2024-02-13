@@ -12,7 +12,7 @@ instance:
       - internal
     filter: {}
     options:
-      host: "localhost"
+      host: "bitbucket"
       port: "7990"
       username: "file:./tmp/bitbucketusername"
       password: "file:./tmp/bitbucketpassword"
