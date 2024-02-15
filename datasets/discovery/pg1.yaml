@@ -17,7 +17,9 @@ instance:
       port: "5432"
       username: "postgres"
       password: "file:./tmp/pgpassword"
-      ssl: "false"
+      ssl: "true"
+      cert: "./tmp/pgcert.crt"
+      key: "./tmp/pgkey.key"
       database: "servicing"
       #ignore, skip, replace, mergeLeft, mergeRight
     duplicatesStrategy: "ignore" 
