@@ -12,7 +12,9 @@ instance:
       port: "9042"
       username: "cassandra"
       password: "file:./tmp/casspassword"
-      ssl: "false"
+      ssl: "true"
+      cert: "./tmp/cass.crt"
+      key: "./tmp/cass.key"
     includes:
       - internal
     classification:
