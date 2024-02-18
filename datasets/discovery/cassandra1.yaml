@@ -13,8 +13,7 @@ instance:
       username: "cassandra"
       password: "file:./tmp/casspassword"
       ssl: "true"
-      cert: "./tmp/cass.crt"
-      key: "./tmp/cass.key"
+      cafile: "./tmp/ca.crt"
     includes:
       - internal
     classification:
