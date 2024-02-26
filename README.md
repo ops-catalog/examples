@@ -71,6 +71,7 @@ The schema called merchant should be visible in postgres as well.
 ```shell
 docker exec -it postgres psql -Upostgres -dpreferences
 preferences=# select catalog_name, schema_name from information_schema.schemata;
+preferences=# \q
 ```
 
 
