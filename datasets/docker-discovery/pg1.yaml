@@ -64,6 +64,5 @@ instance:
       ssl: "true"
       cafile: "/opt/secrets/ca.crt"
       database: "servicing"      
-      database: "preferences"
       #ignore, skip, replace, mergeLeft, mergeRight
     duplicatesStrategy: "ignore"     

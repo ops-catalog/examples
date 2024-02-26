@@ -209,7 +209,7 @@ services:
 
   
   ops-catalog:
-    image: opscatalog/catalog:v0.3.0
+    image: opscatalog/catalog:v0.3.2
     profiles: ["catalog", "minimal", "all"]
     restart: always
     container_name: ops-catalog
@@ -252,3 +252,4 @@ services:
       catalogn:
         aliases:
           - ui
+

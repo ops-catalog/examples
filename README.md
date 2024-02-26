@@ -17,7 +17,13 @@ This runs a minimilastic config where the catalog content can be queried and fil
 
 ### Test Access
 Load the following link to view catalog item:
-http://localhost:8080/api/catalog
+
+|Link|Description|
+|---|---|
+|http://localhost:8080/api/catalog| Catalog Listing|
+|http://localhost:8080/api/catalog?kind=Resource| List Resources Only|
+|http://localhost:8080/api/catalog?kind=Component|List Components Only|
+
 
 ### Ops Catalog with minimal data
 If you have resource constraint, you can run selected profile as well and accordingly update engines list in docker/ops-catalog/conf/discovery.yaml or fulfillment.yaml
@@ -33,6 +39,7 @@ To test discovery and fulfillment, create a new schema against the running postg
 ```shell
 docker exec -it postgres psql -Upostgres -dservicing 
 servicing=# CREATE SCHEMA IF NOT EXISTS refdata;
+servicing=# \q
 ```
 
 Also drop a new file into the mix
