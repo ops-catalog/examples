@@ -10,7 +10,14 @@ dependencies:
   providedBy: cassandra.cassandra-1
   triggers: []
 classification:
-    tag: ["origination", "onboarding", "customer"]
-    domain: "origination"
-    team: "loaders"
-    capability: "origination"
+  tag: ["origination", "onboarding", "customer"]
+  domain: "origination"
+  team: "loaders"
+  capability: "origination"
+properties:
+  lifecycle:
+    replication:
+      datacenter1: "1"
+      class: "NetworkTopologyStrategy"
+      
+

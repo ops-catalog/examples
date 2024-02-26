@@ -103,3 +103,9 @@ To cleanup what we did just then, run the following command to remove all runnin
 docker compose -f docker/docker-compose.yaml down --remove-orphans
 ```
 
+To run with SSL enabled, set SSL_STATE to on in your .dockerenv or one of the env files. A .ssl file is provided for reference and this setup can be run with SSL by executing:
+
+```
+docker compose --env-file docker/.ssl -f docker/docker-compose.yaml --profile minimal up -d
+```
+

@@ -18,9 +18,12 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pgdb:/var/lib/postgresql/data
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/certs:/opt/postgres/certs
       - ./postgres/scripts/:/docker-entrypoint-initdb.d/
+      - ./postgres/conf:/var/lib/postgresql/conf
     container_name: postgres
+    command: postgres -c config_file=/var/lib/postgresql/conf/postgresql.conf -c ssl=${SSL_STATE}
     networks:
       catalogn:
         aliases:
@@ -59,12 +62,14 @@ services:
     profiles: ["cassandra", "db", "all"]
     environment:
       - DS_LICENSE=accept
-      - SSL_VALIDATE=false
+      - SSL_VALIDATE=true
     ports:
       - "9042:9042"
     container_name: cassandra
     volumes:
     - ./cassandra/data:/opt/cassandra/data
+    - ./cassandra/certs:/opt/cassandra/certs
+    - ./cassandra/conf/cassandra.yaml:/opt/cassandra/conf/cassandra.yaml
     networks:
       catalogn:
         aliases:
@@ -211,6 +216,7 @@ services:
     environment:
       - LOG_LEVEL="INFO"
       - CONFIG_FILE=/opt/conf/config.yaml
+      - SSL_STATE=${SSL_STATE}
     volumes:
       - ./ops-catalog/conf/${MODE}.yaml:/opt/conf/config.yaml
       - ./../datasets:/opt/examples/datasets

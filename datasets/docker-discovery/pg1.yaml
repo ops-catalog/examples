@@ -6,6 +6,7 @@ metadata:
 type: postgres
 instance:
   - name: "pg-1"
+    enabled: "${env.SSL_STATE!=on}"
     includes:
       - internal
     classification:
@@ -22,7 +23,28 @@ instance:
       #ignore, skip, replace, mergeLeft, mergeRight
     duplicatesStrategy: "ignore" 
 
+  - name: "pg-1"
+    enabled: "${env.SSL_STATE==on}"  
+    includes:
+      - internal
+    classification:
+      team: "datahoarders"
+      domain: "storage"
+      capability: "dataretention"
+    options: 
+      host: "postgres"
+      port: "5432"
+      username: "file:/opt/secrets/pgusername"
+      password: "file:/opt/secrets/pgpassword"
+      ssl: "true"
+      cafile: "/opt/secrets/ca.crt"
+      database: "servicing"
+      #ignore, skip, replace, mergeLeft, mergeRight
+    duplicatesStrategy: "ignore" 
+
+
   - name: "pg-2"
+    enabled: "${env.SSL_STATE!=on}"
     options: 
       host: "postgres"
       port: "5432"
@@ -32,3 +54,16 @@ instance:
       database: "preferences"
       #ignore, skip, replace, mergeLeft, mergeRight
     duplicatesStrategy: "ignore" 
+  - name: "pg-2"
+    enabled: "${env.SSL_STATE==on}"
+    options: 
+      host: "postgres"
+      port: "5432"
+      username: "file:/opt/secrets/pgusername"
+      password: "file:/opt/secrets/pgpassword"
+      ssl: "true"
+      cafile: "/opt/secrets/ca.crt"
+      database: "servicing"      
+      database: "preferences"
+      #ignore, skip, replace, mergeLeft, mergeRight
+    duplicatesStrategy: "ignore"     

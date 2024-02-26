@@ -12,12 +12,7 @@ options:
   fulfillment:
     reference:
       useDiscovery: true
-      target:
-        - name: broadcast
-          location: "kafka://kafka.ops-catalog.io:9092/catalog-events"
-          options:
-            username: "kafka"
-            password: "none"
+      target: []
     run:
       frequency: 2m
     enabledEngines:
@@ -25,11 +20,10 @@ options:
       - postgres
       - kafka
       - s3
-#      - broadcast
 
   discovery:
     source:
-      - location: ../examples/datasets/discovery
+      - location: /opt/examples/datasets/docker-discovery
         extension: ".yaml"
         name: "discover-1"
         enabled: true
@@ -37,7 +31,6 @@ options:
       - k8s
       - cassandra
       - kafka
-#      - airflow
       - postgres
       - s3
     refresh:

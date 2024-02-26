@@ -7,6 +7,7 @@ type: cassandra
 
 instance:
   - name: "cassandra-1"
+    enabled: "${env.SSL_STATE!=on}"
     options: 
       host: "cassandra"
       port: "9042"
@@ -20,4 +21,21 @@ instance:
       domain: "storage"
       capability: "dataretention"
       #ignore, skip, replace, mergeLeft, mergeRight
-    duplicatesStrategy: "skip"       
+    duplicatesStrategy: "skip"
+  - name: "cassandra-1"
+    enabled: "${env.SSL_STATE==on}"
+    options: 
+      host: "cassandra"
+      port: "9042"
+      username: "file:/opt/secrets/cassusername"
+      password: "file:/opt/secrets/casspassword"
+      ssl: "true"
+      cafile: "/opt/secrets/ca.crt"
+    includes:
+      - internal
+    classification:
+      team: "datahoarders"
+      domain: "storage"
+      capability: "dataretention"
+      #ignore, skip, replace, mergeLeft, mergeRight
+    duplicatesStrategy: "skip"        
