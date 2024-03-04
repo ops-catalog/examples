@@ -1,0 +1,22 @@
+apiVersion: "v1"
+kind: Discovery
+metadata: 
+  name: "ops-catalog-edge"
+
+type: catalog
+instance:
+  - name: "ops-catalog-edge"
+    filter:
+      excludes: ["local-path-.*", "metrics-.*", "coredns", "envoy.*gateway.*"]
+    includes:
+      - internal
+    options: 
+      host: "edge-catalog"
+      port: "8060"
+      ssl: "false"
+    classification:
+      team: "devops"
+      domain: "platform"
+      capability: "operations"
+    #ignore, skip, replace, mergeLeft, mergeRight
+    duplicatesStrategy: "ignore" 
