@@ -18,10 +18,10 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./postgres/data:/var/lib/postgresql/data
-      - ./postgres/certs:/opt/postgres/certs:r
-      - ./postgres/scripts/:/docker-entrypoint-initdb.d/
-      - ./postgres/conf:/var/lib/postgresql/conf
+      - ./setup/postgres/data:/var/lib/postgresql/data
+      - ./setup/postgres/certs:/opt/postgres/certs:r
+      - ./setup/postgres/scripts/:/docker-entrypoint-initdb.d/
+      - ./setup/postgres/conf:/var/lib/postgresql/conf
     container_name: postgres
     command: postgres -c config_file=/var/lib/postgresql/conf/postgresql.conf -c ssl=${SSL_STATE}
     networks:
@@ -43,8 +43,8 @@ services:
       - PG_HOST=postgres
     container_name: pg-data
     volumes:
-      - ./pg-data/files/scripts:/tmp/scripts
-      - ./pg-data/files/sql:/tmp/data
+      - ./setup/pg-data/files/scripts:/tmp/scripts
+      - ./setup/pg-data/files/sql:/tmp/data
     networks:
       catalogn:
         aliases:
@@ -67,9 +67,9 @@ services:
       - "9042:9042"
     container_name: cassandra
     volumes:
-    - ./cassandra/data:/opt/cassandra/data
-    - ./cassandra/certs:/opt/cassandra/certs:r
-    - ./cassandra/conf/cassandra.yaml:/opt/cassandra/conf/cassandra.yaml
+    - ./setup/cassandra/data:/opt/cassandra/data
+    - ./setup/cassandra/certs:/opt/cassandra/certs:r
+    - ./setup/cassandra/conf/cassandra.yaml:/opt/cassandra/conf/cassandra.yaml
     networks:
       catalogn:
         aliases:
@@ -89,8 +89,8 @@ services:
       - CASSANDRA_HOST=cassandra
     container_name: cass-data
     volumes:
-      - ./cass-data/files/scripts:/tmp/scripts
-      - ./cass-data/files/cql:/tmp/data
+      - ./setup/cass-data/files/scripts:/tmp/scripts
+      - ./setup/cass-data/files/cql:/tmp/data
     networks:
       catalogn:
         aliases:
@@ -112,7 +112,7 @@ services:
       - "9092:9092"
       - "9094:9094"
     volumes:
-      - "./kafka/data:/bitnami"
+      - "./setup/kafka/data:/bitnami"
     environment:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
@@ -142,7 +142,7 @@ services:
       - KAFKA_HOST=kafka
     container_name: kafka-setup
     volumes:
-      - './kafka-setup/files/scripts:/tmp/scripts'
+      - './setup/kafka-setup/files/scripts:/tmp/scripts'
     command: ['/bin/bash', '-c', '/tmp/scripts/init.sh']
     depends_on:
       kafka:
@@ -167,9 +167,9 @@ services:
       - LOAD_EX=n
       - EXECUTOR=Local
     volumes:
-      - ./airflow/dags:/opt/airflow/dags
-      - ./airflow/logs:/opt/airflow/logs
-      - ./airflow/conf/airflow.cfg:/opt/airflow/airflow.cfg
+      - ./setup/airflow/dags:/opt/airflow/dags
+      - ./setup/airflow/logs:/opt/airflow/logs
+      - ./setup/airflow/conf/airflow.cfg:/opt/airflow/airflow.cfg
     ports:
       - "8280:8080"
     command: embedded
@@ -199,7 +199,7 @@ services:
       - IGNORE_HEADERS=true
       - LISTEN_ADDRESS=k8s-read:6100
     volumes:
-      - ./k8s-proxy-cache/cache:/tmp/cache
+      - ./setup/k8s-proxy-cache/cache:/tmp/cache
     ports:
       - "6100:6100"
     networks:
@@ -218,7 +218,7 @@ services:
       - CONFIG_FILE=/opt/conf/config.yaml
       - SSL_STATE=${SSL_STATE}
     volumes:
-      - ./ops-catalog/conf/${MODE}.yaml:/opt/conf/config.yaml
+      - ./setup/ops-catalog/conf/${MODE}.yaml:/opt/conf/config.yaml
       - ./../datasets:/opt/examples/datasets
       - ./../secrets:/opt/secrets
     depends_on:
@@ -244,7 +244,7 @@ services:
       - NODE_TLS_REJECT_UNAUTHORIZED=0
       - CATALOG_URL=http://ops-catalog:8080/api/catalog
     volumes:
-      - ./ui/conf/:/app/conf
+      - ./setup/ui/conf/:/app/conf
     depends_on: {}
     ports:
       - "7007:7007"
