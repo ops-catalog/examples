@@ -1,0 +1,119 @@
+version: '3.7'
+volumes: {}
+networks:
+  catalogn: { }
+
+services:
+  postgres:
+    image: postgres:15.5
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./setup/containers/postgres/data:/var/lib/postgresql/data
+      - ./setup/containers/postgres/certs:/opt/postgres/certs:r
+      - ./setup/containers/postgres/scripts/:/docker-entrypoint-initdb.d/
+      - ./setup/containers/postgres/conf:/var/lib/postgresql/conf
+    container_name: postgres
+    command: postgres -c config_file=/var/lib/postgresql/conf/postgresql.conf -c ssl=off
+    networks:
+      catalogn:
+        aliases:
+        - postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: "10s"
+      timeout: "10s"
+      retries: 3
+
+  pg-data:
+    image: postgres:15.5
+    environment:
+      - PG_USER=postgres
+      - PGPASSWORD=password
+      - PG_HOST=postgres
+    container_name: pg-data
+    volumes:
+      - ./setup/containers/pg-data/files/scripts:/tmp/scripts
+      - ./setup/containers/pg-data/files/sql:/tmp/data
+    networks:
+      catalogn:
+        aliases:
+          - pg-data
+    command:
+      - /bin/bash
+      - -c
+      - /tmp/scripts/init.sh
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+
+
+  k8s-read:
+    image: skhatri/go-http-cache:v1.0.5
+    restart: always
+    container_name: k8s-read
+    environment:
+      - TARGET=http://k8s-read.ops-catalog.io:80
+      - TARGET_DESC="wont be called as we are using cached data"
+      - CONFIG_FILE=/conf/config.yaml
+      - LOG_MISS=true 
+      - IGNORE_HEADERS=true
+      - LISTEN_ADDRESS=k8s-read:6100
+    volumes:
+      - ./setup/containers/k8s-proxy-cache/cache:/tmp/cache
+    ports:
+      - "6100:6100"
+    networks:
+      catalogn:
+        aliases:
+          - k8s-read
+
+  
+  ops-catalog:
+    image: opscatalog/catalog:v0.3.2
+    restart: always
+    container_name: ops-catalog
+    environment:
+      - LOG_LEVEL="INFO"
+      - CONFIG_FILE=/opt/conf/config.yaml
+      - SSL_STATE=off
+    volumes:
+      - ./recipes/minimal/config.yaml:/opt/conf/config.yaml
+      - ./setup/secrets:/opt/secrets
+      - ./datasets:/opt/examples/datasets
+    depends_on:
+      postgres:
+        condition: service_healthy
+      pg-data:
+        condition: service_completed_successfully
+    ports:
+      - "8080:8080"
+    networks:
+      catalogn:
+        aliases:
+          - ops-catalog
+
+  ui:
+    image: opscatalog/backstage-ui:latest
+    restart: always
+    container_name: ui
+    environment:
+      - NODE_ENV=development
+      - ENVIRONMENT_CONFIG=local 
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+      - CATALOG_URL=http://ops-catalog:8080/api/catalog
+    volumes:
+      - ./setup/containers/ui/conf/:/app/conf
+    depends_on: {}
+    ports:
+      - "7007:7007"
+    networks:
+      catalogn:
+        aliases:
+          - ui
+

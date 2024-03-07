@@ -1,0 +1,55 @@
+
+options:
+  log:
+    level: "info"
+    format: "json"
+  server:
+    address: ":8080"
+
+  catalog:
+    location: "http://localhost:8080/api/catalog"
+
+
+  serve:
+    search:
+      index: ["layer", "tier", "team", "domain", "contact", "type",  "language", "name"]
+      parallel: 1
+    refresh:
+      frequency: 5m
+    source:
+      - location: /opt/examples/datasets/catalog/my-account
+        extension: ".yaml"
+        name: "gitsync"
+        enabled: true
+      - location: /opt/examples/datasets/discovered-items
+        extension: ".yaml"
+        name: "discovery-data"
+        enabled: true        
+
+
+  discovery:
+    source:
+      - location: /opt/examples/datasets/discovery/ssl
+        extension: ".yaml"
+        name: "discover-1"
+        enabled: true
+    enabledEngines:
+      - k8s
+      - postgres
+    refresh:
+      frequency: 4m
+    target:
+      name: "sink"
+      location: "/opt/examples/datasets/discovered-items"
+      options: {}
+
+
+  fulfillment:
+    reference:
+      useDiscovery: true
+      target: []
+    run:
+      frequency: 2m
+    enabledEngines:
+      - postgres
+

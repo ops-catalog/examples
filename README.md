@@ -9,8 +9,8 @@ git clone git@github.com:ops-catalog/examples.git
 cd examples
 docker run \
 -v $(pwd)/datasets:/opt/app/datasets \
--v $(pwd)/conf:/opt/app/config \
--e CONFIG_FILE=/opt/app/config/simple.yaml -p 8080:8080 \
+-v $(pwd)/recipes/simple:/opt/app/config \
+-e CONFIG_FILE=/opt/app/config/config.yaml -p 8080:8080 \
 -it opscatalog/catalog:latest
 ```
 This runs a minimilastic config where the catalog content can be queried and filtered through a HTTP API call.
@@ -26,12 +26,12 @@ Load the following link to view catalog item:
 
 
 ### Ops Catalog with minimal data
-If you have resource constraint, you can run selected profile as well and accordingly update engines list in docker/ops-catalog/conf/discovery.yaml or fulfillment.yaml
+If you have resource constraint, you can run selected profile as well and accordingly update engines list in setup/containers/ops-catalog/conf/discovery.yaml or fulfillment.yaml
 
 We can run the command like below to bring up ops catalog API, a stand-in for objects in a Kubernetes cluster,  a postgres instance with two databases and a basic UI.
 
 ```
-docker compose --env-file docker/.minimal -f docker/docker-compose.yaml --profile minimal up -d
+./run.sh scenario minimal
 ```
 
 To test discovery and fulfillment, create a new schema against the running postgres.
@@ -91,14 +91,14 @@ Ops Catalog can provide data to your existing backstage instance. Navigate to ht
 This compose file also runs a standalone kafka, postgres and cassandra and seeds them with initial objects so they can be collected by the discovery module.
 
 ```
-docker compose --env-file docker/.discovery -f docker/docker-compose.yaml --profile all up -d
+./run.sh scenario discover
 ```
 
 ### Fulfillment Mode
 The compose file is somewhat similar to discovery as it is now writing back to the targets.
 
 ```
-docker compose --env-file docker/.fulfillment -f docker/docker-compose.yaml --profile all up -d
+./run.sh scenario fulfillment
 ```
 
 
@@ -108,12 +108,18 @@ Refer to the [documentation](https://ops-catalog.github.io/specification) for de
 To cleanup what we did just then, run the following command to remove all running containers associated with this project.
 
 ```
-docker compose -f docker/docker-compose.yaml down --remove-orphans
+./run.sh down
+```
+
+or
+
+```
+docker compose down
 ```
 
 To run with SSL enabled, set SSL_STATE to on in your .dockerenv or one of the env files. A .ssl file is provided for reference and this setup can be run with SSL by executing:
 
 ```
-docker compose --env-file docker/.ssl -f docker/docker-compose.yaml --profile minimal up -d
+./run.sh scenario ssl
 ```
 

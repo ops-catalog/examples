@@ -3,7 +3,7 @@ options:
     search:
       index: ["layer", "tier", "team", "domain", "contact", "type",  "language", "name"]
     source:
-      - location: /opt/app/datasets/my-account
+      - location: /opt/app/datasets/catalog/my-account
         extension: ".yaml"
         name: "gitsync"
         enabled: true
