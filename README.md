@@ -13,7 +13,7 @@ cd examples
 The recipes discussed here can be used for reference to try out a specific use case.
 
 |Recipe Name|Goal|
-|---|---|---|
+|---|---|
 |simple|run a basic catalog API with static data|
 |minimal|run ui,catalog and postgres|
 |ssl|run ui, catalog and postgres. Postgres TLS is enabled.|
