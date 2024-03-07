@@ -4,7 +4,7 @@ There are a bunch of example configurations available in this project to run Ops
 ## Running Ops Catalog Api
 Ensure you have Docker/Nerdctl installed and execute the following:
 
-```
+```shell
 git clone git@github.com:ops-catalog/examples.git
 cd examples
 ```
@@ -22,7 +22,7 @@ The recipes discussed here can be used for reference to try out a specific use c
 
 A run.sh file is provided to make it easier to run various docker compose files. Usage documentation for run.sh is shared below.
 
-```
+```shell
 $ ./run.sh
 a scenario can be run like this:
 
@@ -45,7 +45,7 @@ This is probably the simplest use case. We are mounting catalog items into a fol
 
 To run this recipe, invoke
 
-```
+```shell
 ./run.sh scenario simple
 ```
 
@@ -53,7 +53,7 @@ Docker containers started with ./run.sh command can be stopped using ```./run.sh
 
 Since this step only requires a single docker container to run, it can also be invoked directly like so:
 
-```
+```shell
 docker run \
 -v $(pwd)/datasets:/opt/app/datasets \
 -v $(pwd)/recipes/simple:/opt/app/config \
@@ -76,7 +76,7 @@ If you have resource constraint, you can run selected profile as well and accord
 
 We can run the command like below to bring up ops catalog API, a stand-in for objects in a Kubernetes cluster,  a postgres instance with two databases and a basic UI.
 
-```
+```shell
 ./run.sh scenario minimal
 ```
 
@@ -143,7 +143,7 @@ Each Scenario run can be cleaned up by running ```./run.sh down```
 
 To run with SSL enabled, set SSL_STATE to on in your .dockerenv or one of the env files. A .ssl file is provided for reference and this setup can be run with SSL by executing:
 
-```
+```shell
 ./run.sh scenario ssl
 ```
 
@@ -152,7 +152,7 @@ A number of catalog instances can be run in federated mode. This allows for loca
 
 You can simulate this by running the following:
 
-```
+```shell
 ./run.sh scenario edge
 ```
 
@@ -160,14 +160,14 @@ You can simulate this by running the following:
 ### Recipe: discovery
 This compose file also runs a standalone kafka, postgres and cassandra and seeds them with initial objects so they can be collected by the discovery module.
 
-```
+```shell
 ./run.sh scenario discover
 ```
 
 ### Recipe: fulfillment
 The compose file is somewhat similar to discovery as it is now writing back to the targets.
 
-```
+```shell
 ./run.sh scenario fulfillment
 ```
 
@@ -177,12 +177,12 @@ Refer to the [documentation](https://ops-catalog.github.io/specification) for de
 ## Cleanup Activity
 To cleanup what we did just then, run the following command to remove all running containers associated with this project.
 
-```
+```shell
 ./run.sh down
 ```
 
 or
 
-```
+```shell
 docker compose down
 ```
