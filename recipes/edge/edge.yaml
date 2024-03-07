@@ -1,0 +1,18 @@
+options:
+  log:
+    level: "info"
+    format: "json"
+  server:
+    address: ":8060"
+
+  serve:
+    search:
+      index: ["layer", "tier", "team", "domain", "contact", "type",  "language", "name"]
+      parallel: 1
+    refresh:
+      frequency: 5m
+    source:
+      - location: /opt/examples/datasets/catalog/edge-data
+        extension: ".yaml"
+        name: "gitsync"
+        enabled: true

@@ -1,0 +1,37 @@
+options:
+  log:
+    level: "info"
+    format: "json"
+  server:
+    address: ":8080"
+
+  catalog:
+    location: "http://localhost:8080/api/catalog"
+
+  serve:
+    search:
+      index: ["layer", "tier", "team", "domain", "contact", "type",  "language", "name"]
+      parallel: 1
+    refresh:
+      frequency: 5m
+    source:
+      - location: "/opt/examples/datasets/output/edge"
+        extension: ".yaml"
+        name: "discovery-examples"
+        enabled: true
+        options: {}
+
+  discovery:
+    source:
+      - location: /opt/examples/datasets/discovery/edge
+        extension: ".yaml"
+        name: "edge-discovery"
+        enabled: true
+    enabledEngines:
+      - catalog
+    refresh:
+      frequency: 10m
+    target:
+      name: "sink"
+      location: "/opt/examples/datasets/output/edge"
+      options: {}

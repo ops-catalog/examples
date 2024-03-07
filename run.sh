@@ -14,8 +14,10 @@ usage(){
 Scenario command runs one of the available scenarios.
 name:
 --------------
+simple    - a catalog server with sample catalog items loaded from ./datasets/catalog/my-account
 minimal   - a basic setup with catalog, ui, postgres and some seed data
 ssl       - a basic setup with catalog, ui and postgres with TLS
+edge      - aggregator catalog discovers data from edge catalog
 
 Down command shuts down the running containers.
 '

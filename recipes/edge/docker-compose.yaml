@@ -1,0 +1,65 @@
+version: '3.7'
+volumes: {}
+networks:
+  catalogn: { }
+
+services:
+
+  edge-catalog:
+    image: opscatalog/catalog:v0.3.2
+    restart: always
+    container_name: edge-catalog
+    environment:
+      - LOG_LEVEL="INFO"
+      - CONFIG_FILE=/opt/conf/config.yaml
+      - SSL_STATE=off
+    volumes:
+      - ./recipes/edge/edge.yaml:/opt/conf/config.yaml
+      - ./datasets:/opt/examples/datasets
+    depends_on: {}
+    ports:
+      - "8060:8060"
+    networks:
+      catalogn:
+        aliases:
+          - edge-catalog
+
+  ops-catalog:
+    image: opscatalog/catalog:v0.3.2
+    restart: always
+    container_name: ops-catalog
+    environment:
+      - LOG_LEVEL="INFO"
+      - CONFIG_FILE=/opt/conf/config.yaml
+      - SSL_STATE=off
+    volumes:
+      - ./recipes/edge/aggregator.yaml:/opt/conf/config.yaml
+      - ./setup/secrets:/opt/secrets
+      - ./datasets:/opt/examples/datasets
+    depends_on: {}
+    ports:
+      - "8080:8080"
+    networks:
+      catalogn:
+        aliases:
+          - ops-catalog
+
+  ui:
+    image: opscatalog/backstage-ui:latest
+    restart: always
+    container_name: ui
+    environment:
+      - NODE_ENV=development
+      - ENVIRONMENT_CONFIG=local 
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+      - CATALOG_URL=http://ops-catalog:8080/api/catalog
+    volumes:
+      - ./setup/containers/ui/conf/:/app/conf
+    depends_on: {}
+    ports:
+      - "7007:7007"
+    networks:
+      catalogn:
+        aliases:
+          - ui
+
