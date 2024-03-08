@@ -166,7 +166,7 @@ You can simulate this by running the following:
 This compose file also runs a standalone kafka, postgres and cassandra and seeds them with initial objects so they can be collected by the discovery module.
 
 ```shell
-./run.sh recipe discover
+./run.sh recipe discovery
 ```
 
 ### Recipe: fulfillment
