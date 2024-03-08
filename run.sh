@@ -1,23 +1,26 @@
 #!/usr/bin/env bash
 
 cmd=$1
-scenario=$2
+recipe=$2
 
 
 usage(){
   local code=$1
-  echo 'a scenario can be run like this:
+  echo 'a recipe can be run like this:
 
-  ./run.sh scenario <name>
+  ./run.sh recipe <name>
   ./run.sh down
 
-Scenario command runs one of the available scenarios.
+Recipe command runs one of the available recipes.
+
 name:
---------------
-simple    - a catalog server with sample catalog items loaded from ./datasets/catalog/my-account
-minimal   - a basic setup with catalog, ui, postgres and some seed data
-ssl       - a basic setup with catalog, ui and postgres with TLS
-edge      - aggregator catalog discovers data from edge catalog
+-----
+simple      - a catalog server with sample catalog items loaded from ./datasets/catalog/my-account
+minimal     - a basic setup with catalog, ui, postgres and some seed data
+ssl         - a basic setup with catalog, ui and postgres with TLS
+edge        - aggregator catalog discovers data from edge catalog
+discovery   - performs discovery against few targets like postgres, cassandra, airflow, k8s, kafka and presents in UI
+fulfillment - provisions resources in catalog which are not yet in target servers
 
 Down command shuts down the running containers.
 '
@@ -30,7 +33,7 @@ then
   usage 0
 fi;
 
-runScenario() {
+runRecipe() {
   local name=$1
   if [[ ! -f recipes/$name/docker-compose.yaml ]];
   then
@@ -53,8 +56,8 @@ case $cmd in
   down)
     docker compose down
     ;;
-  scenario)
-    runScenario $scenario
+  recipe)
+    runRecipe $recipe
     ;;
   *)
     usage 1;

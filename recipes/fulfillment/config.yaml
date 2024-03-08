@@ -23,7 +23,7 @@ options:
 
   discovery:
     source:
-      - location: /opt/examples/datasets/docker-discovery
+      - location: /opt/examples/datasets/discovery/docker
         extension: ".yaml"
         name: "discover-1"
         enabled: true
@@ -48,7 +48,7 @@ options:
     refresh:
       frequency: 5m
     source:
-      - location: /opt/examples/datasets/my-account
+      - location: /opt/examples/datasets/catalog/my-account
         extension: ".yaml"
         name: "gitsync"
         enabled: true

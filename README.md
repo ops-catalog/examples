@@ -18,26 +18,31 @@ The recipes discussed here can be used for reference to try out a specific use c
 |minimal|run ui,catalog and postgres|
 |ssl|run ui, catalog and postgres. Postgres TLS is enabled.|
 |edge|run ui and multiple catalog instances. One acts as aggregator and another as edge|
-
+|discovery|finds resources in targets like databases, airflow, k8s, messaging servers|
+|fulfillment|provisions resources against databases, message servers|
 
 A run.sh file is provided to make it easier to run various docker compose files. Usage documentation for run.sh is shared below.
 
 ```shell
-$ ./run.sh
-a scenario can be run like this:
+$ ./run.sh                                                                                                                 i
+a recipe can be run like this:
 
-  ./run.sh scenario <name>
+  ./run.sh recipe <name>
   ./run.sh down
 
-Scenario command runs one of the available scenarios.
+Recipe command runs one of the available recipes.
+
 name:
---------------
-simple    - a catalog server with sample catalog items loaded from ./datasets/catalog/my-account
-minimal   - a basic setup with catalog, ui, postgres and some seed data
-ssl       - a basic setup with catalog, ui and postgres with TLS
-edge      - aggregator catalog discovers data from edge catalog
+-----
+simple      - a catalog server with sample catalog items loaded from ./datasets/catalog/my-account
+minimal     - a basic setup with catalog, ui, postgres and some seed data
+ssl         - a basic setup with catalog, ui and postgres with TLS
+edge        - aggregator catalog discovers data from edge catalog
+discovery   - performs discovery against few targets like postgres, cassandra, airflow, k8s, kafka and presents in UI
+fulfillment - provisions resources in catalog which are not yet in target servers
 
 Down command shuts down the running containers.
+
 ```
 
 ### Recipe: simple
@@ -46,7 +51,7 @@ This is probably the simplest use case. We are mounting catalog items into a fol
 To run this recipe, invoke
 
 ```shell
-./run.sh scenario simple
+./run.sh recipe simple
 ```
 
 Docker containers started with ./run.sh command can be stopped using ```./run.sh down```
@@ -77,7 +82,7 @@ If you have resource constraint, you can run selected profile as well and accord
 We can run the command like below to bring up ops catalog API, a stand-in for objects in a Kubernetes cluster,  a postgres instance with two databases and a basic UI.
 
 ```shell
-./run.sh scenario minimal
+./run.sh recipe minimal
 ```
 
 
@@ -137,14 +142,14 @@ Ops Catalog can provide data to your existing backstage instance. Navigate to ht
 
 
 #### Tearing Down
-Each Scenario run can be cleaned up by running ```./run.sh down```
+Each Recipe run can be cleaned up by running ```./run.sh down```
 
 ### Recipe: ssl
 
 To run with SSL enabled, set SSL_STATE to on in your .dockerenv or one of the env files. A .ssl file is provided for reference and this setup can be run with SSL by executing:
 
 ```shell
-./run.sh scenario ssl
+./run.sh recipe ssl
 ```
 
 ### Recipe: edge
@@ -153,7 +158,7 @@ A number of catalog instances can be run in federated mode. This allows for loca
 You can simulate this by running the following:
 
 ```shell
-./run.sh scenario edge
+./run.sh recipe edge
 ```
 
 
@@ -161,14 +166,14 @@ You can simulate this by running the following:
 This compose file also runs a standalone kafka, postgres and cassandra and seeds them with initial objects so they can be collected by the discovery module.
 
 ```shell
-./run.sh scenario discover
+./run.sh recipe discover
 ```
 
 ### Recipe: fulfillment
 The compose file is somewhat similar to discovery as it is now writing back to the targets.
 
 ```shell
-./run.sh scenario fulfillment
+./run.sh recipe fulfillment
 ```
 
 
