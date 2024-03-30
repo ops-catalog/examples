@@ -19,7 +19,7 @@ options:
       - cassandra
       - postgres
       - kafka
-      - s3
+      - aws 
 
   discovery:
     source:
@@ -32,7 +32,7 @@ options:
       - cassandra
       - kafka
       - postgres
-      - s3
+      - aws
     refresh:
       frequency: 4m
     target:
