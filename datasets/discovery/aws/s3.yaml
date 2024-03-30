@@ -7,8 +7,9 @@ type: aws
 instance:
   - name: "s3-1"
     filter:
+      resources: ["s3", "lambda", "sqs", "sns"]
       excludes: [".*"]
-      includes: ["spark.*", "gpg.*", ".*biller", "aws-sts.*"]
+      includes: ["spark.*", "gpg.*", ".*biller", "aws-sts.*", "save.*", "sqs.*", "sns.*"]
 
     includes:
       - internal
@@ -18,10 +19,6 @@ instance:
       domain: "storage"
       capability: "dataretention"
     options: 
-
-      host: "s3.ap-southeast-2.amazonaws.com"
-      port: "443"
-
       username: "file:./tmp/access_key"
       password: "file:./tmp/secret_key"
       region: "ap-southeast-2"
