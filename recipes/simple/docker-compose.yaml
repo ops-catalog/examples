@@ -1,0 +1,27 @@
+version: '3.7'
+volumes: {}
+networks:
+  catalogn: { }
+
+services:
+  
+  ops-catalog:
+    image: opscatalog/catalog:v0.3.2
+    restart: always
+    container_name: ops-catalog
+    environment:
+      - LOG_LEVEL="INFO"
+      - CONFIG_FILE=/opt/conf/config.yaml
+      - SSL_STATE=off
+    volumes:
+      - ./recipes/minimal/config.yaml:/opt/conf/config.yaml
+      - ./setup/secrets:/opt/secrets
+      - ./datasets:/opt/examples/datasets
+    depends_on: {}
+    ports:
+      - "8080:8080"
+    networks:
+      catalogn:
+        aliases:
+          - ops-catalog
+

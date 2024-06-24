@@ -21,6 +21,7 @@ ssl         - a basic setup with catalog, ui and postgres with TLS
 edge        - aggregator catalog discovers data from edge catalog
 discovery   - performs discovery against few targets like postgres, cassandra, airflow, k8s, kafka and presents in UI
 fulfillment - provisions resources in catalog which are not yet in target servers
+all         - runs discovery, fulfillment and catalog
 
 Down command shuts down the running containers.
 '
@@ -35,6 +36,15 @@ fi;
 
 runRecipe() {
   local name=$1
+  if [[ $name == "" ]];
+  then
+    echo "recipe name required"
+    usage 1;
+  fi;
+  if [[ "$name" == "all" ]];
+  then
+    name="fulfillment"
+  fi;
   if [[ ! -f recipes/$name/docker-compose.yaml ]];
   then
     echo $name is not available;
